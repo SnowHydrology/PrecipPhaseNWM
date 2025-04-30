@@ -37,6 +37,10 @@ df3 <- df2 %>%
          tdew_degC = temp_dew_idw_lapse_var,
          rh)
 
+# Add a unique ID column for joining data later on
+df3 <- df3 %>% 
+    mutate(id = row_number())
+
 # Store data on the two datasets
 df_meta <- data.frame(
   source = c("full", "processed"),
