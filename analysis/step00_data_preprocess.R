@@ -1,56 +1,38 @@
 # Script for pre-processing the MRoS data
-# The original dataset is from https://rainorsnowmaps.com/
-# Spatial subset: CONUS
-# Full period of record
+# Data here are from the Jennings et al. 2025 manuscript
+# Jennings, K.S., Collins, M., Hatchett, B.J. et al. 
+# Machine learning shows a limit to rain-snow partitioning accuracy when using 
+# near-surface meteorology. Nat Commun 16, 2929 (2025). 
+# https://doi.org/10.1038/s41467-025-58234-2
 
-# Downloaded file is quite large for GitHub, so it's stored locally
-# The processed file, posted to GitHub, is used for all subsequent analyses
+# Data citation:
+# Jennings, Keith; Arienzo, Monica; Collins, Meghan; Hur, Nayoung (2024), 
+# “Mountain Rain or Snow Crowdsourced Precipitation Phase Data 2020-2023”, 
+# Mendeley Data, V1, doi: 10.17632/x84hy7yky4.1
 
 # Load packages 
 library(tidyverse)
 
-# ID the local data file
-# Rename this if you are using your own version of MRoS data
-fname = "../../data/mros_obs_2020-01-01_2025-04-24.csv"
+# Use the URL from the Mendeley Data link
+# If URL broken, go to https://doi.org/10.17632/x84hy7yky4.1
+fname = "https://data.mendeley.com/public-files/datasets/x84hy7yky4/files/d4f56dec-1634-462c-8a53-821ccf767029/file_downloaded"
 
-# Read in the local data file
+# Read in the data file
 df <- read.csv(fname)
 
-# Filter to the obs passing QC checks
-# And remove duplicate entries
-df2 <- df %>% 
-  filter(temp_air_flag == "Pass",
-         rh_flag == "Pass",
-         phase_flag == "Pass",
-         nstation_temp_air_flag == "Pass") %>% 
-  group_by(latitude, longitude, datetime_utc) %>% 
-  mutate(n_obs = n()) %>% 
-  filter(n_obs == 1) %>% 
-  ungroup()
-
 # Downselect and rename the variables we want
-df3 <- df2 %>% 
-  select(phase, latitude, longitude, datetime_utc,
-         elevation_m, eco_level3, eco_level4, state, plp,
-         tair_degC = temp_air_idw_lapse_var,
-         twet_degC = temp_wet,
-         tdew_degC = temp_dew_idw_lapse_var,
+df <- df %>% 
+  select(phase, latitude, longitude, datetime_utc, elevation.m,
+         tair_degC = tair,
+         twet_degC = twet,
+         tdew_degC = tdew,
          rh)
 
 # Add a unique ID column for joining data later on
-df3 <- df3 %>% 
-    mutate(id = row_number())
-
-# Store data on the two datasets
-df_meta <- data.frame(
-  source = c("full", "processed"),
-  n_obs = c(nrow(df), nrow(df3))
-  )
+df <- df %>% 
+  mutate(id = row_number())
 
 # Export data
-write.csv(x = df3,
+write.csv(x = df,
           file = "data/mros_obs.csv",
-          quote = F, row.names = F)
-write.csv(x = df_meta,
-          file = "data/mros_obs_meta.csv",
           quote = F, row.names = F)
