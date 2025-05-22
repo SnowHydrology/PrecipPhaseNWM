@@ -67,7 +67,7 @@ for(i in 1:length(ppms$method)){
     tmp.threshHi = ppms[i, "threshHi"]
     tmp.pred <- df %>% 
       mutate(snow_frac_pred = phaseRange(.[[tmp.temp_type]], tmp.threshLo, tmp.threshHi),
-             ppm = paste(tmp.method, tmp.temp_type, tmp.thresh, sep = "_"))
+             ppm = paste(tmp.method, tmp.temp_type, tmp.threshLo, tmp.threshHi, sep = "_"))
   } else if(tmp.method == "binlog"){
     tmp.pred <- df %>% 
       mutate(snow_frac_pred = phaseBinlog(tair, rh),
