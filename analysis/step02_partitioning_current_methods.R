@@ -80,11 +80,7 @@ for(i in 1:length(ppms$method)){
   
   # Estimate the phase from the snow fraction
   tmp.pred <- tmp.pred %>% 
-    mutate(phase_pred = ifelse(snow_frac_pred >= snow_thresh,
-                               "Snow",
-                               ifelse(snow_frac_pred <= rain_thresh,
-                                      "Rain",
-                                      "Mix")))
+    mutate(phase_pred = phaseConversion(snow_frac_pred))
 
   # Add the scenario to the data
   tmp.pred$scenario <- tmp.scenario

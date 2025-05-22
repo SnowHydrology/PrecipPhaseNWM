@@ -72,3 +72,22 @@ phaseBinlog <- function(tair_degC, rh_pct){
          1,
          0)
 }
+
+
+#' Function to convert numeric phase (or snow fraction using the convention in this script)
+#'
+#' @param phase_numeric Input numeric phase from 0 (all rain) to 1 (all snow)
+#' @param all_snow_thresh Numeric parameter above which precipitation is all snow (default = 1)
+#' @param all_rain_thresh Numeric parameter below which precipitation is all rain (default = 0)
+#'
+#' @returns Character string corresponding to the phase ("Rain", "Mix", "Snow")
+#' @export
+#'
+#' @examples phaseConversion(1) # Returns "Snow"
+phaseConversion <- function(phase_numeric, all_snow_thresh = 1, all_rain_thresh = 0){
+  ifelse(phase_numeric >= all_snow_thresh,
+         "Snow",
+         ifelse(phase_numeric <= all_rain_thresh,
+                "Rain",
+                "Mix"))
+}
