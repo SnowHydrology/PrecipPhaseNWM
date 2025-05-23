@@ -1,0 +1,14 @@
+PPM,Method,Normalized Score,Accuracy (%),Rain Bias (%),Snow Bias (%),Mix Bias (%),Notes
+range_twet_0.5_1.5,Tw range 0.5¡C to 1.5¡C,94.1,76.8,-13.5,6.1,-0.9,
+range_tair_1.5_2.5,Ta range 1.5¡C to 2.5¡C,93.3,72.6,12.6,-4.6,-5.1,
+range_tair_2.5_3,Ta range 2.5¡C to 3.0¡C,85.9,74.4,-4.6,13.8,-60.6,
+range_twet_1_1.5,Tw range 1.0¡C to 1.5¡C,85.4,77.9,-13.5,16.7,-55.6,
+thresh_twet_1,Tw threshold 1.0¡C,80.6,78.7,5.9,16.7,-100,"Most accurate method, best threshold by score and accuracy"
+thresh_tair_2.75,Ta threshold 2.75¡C,80.3,75.2,3.8,17.7,-100,
+thresh_tair_2.5,Ta threshold 2.5¡C,79.6,75.2,12.6,13.8,-100,
+thresh_tair_2.2,Ta threshold 2.2¡C,78.7,75.1,24.4,8.5,-100,Noah-MP option
+jordan,Jordan (1991),77.2,67,12.6,-24.6,98.4,NWM v 3 method
+binlog,Binary logistic regression,77,76.4,45.7,-0.9,-100,Noah-OWP-Modular option
+range_tair_-0.5_0.5,Ta range -0.5¡C to 0.5¡C,74,60.2,99.3,-41.8,-11.5,VIC method
+thresh_tair_0,Ta threshold 0.0¡C,60.6,63.4,120.9,-34.2,-100,Noah-MP option
+range_tair_-1_3,Ta range -1.0¡C to 3.0¡C,51.9,55.8,-4.6,-48.1,259.3,UEB method

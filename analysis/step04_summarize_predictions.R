@@ -116,3 +116,6 @@ summary <- summary %>%
                               NA)
   )
 
+# Export
+saveRDS(object = summary,
+        file = paste0(data_dir, "preds_summary.RDS"))
